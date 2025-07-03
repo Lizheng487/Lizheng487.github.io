@@ -9,8 +9,6 @@
     
     <title>
         
-            标签 |
-        
         Blog
     </title>
     
@@ -138,7 +136,7 @@
                                         </li>
                                     
                                         
-                                        <li class="sub-menu-item border-box  active">
+                                        <li class="sub-menu-item border-box ">
                                             <a class="menu-text-color border-box flex-start" href="/tags">
                                                 
                                                     <i class="menu-text-color sub-menu-icon fa-solid fa-tags"></i>
@@ -269,7 +267,7 @@
                                 </li>
                             
                                 
-                                <li class="sub-menu-item border-box active">
+                                <li class="sub-menu-item border-box">
                                     <a class="drawer-menu-text-color border-box flex-start" href="/tags">
                                         
                                             <span class="sub-menu-icon-wrap border-box flex-center">
@@ -343,16 +341,91 @@
             <div class="main-content border-box">
                 
 
-                    <div class="fade-in-down-animation">
-    <div class="tag-page-container">
+                    
+
+<div class="fade-in-down-animation">
+    <div class="page-template-container border-box keep-container ">
+        <!-- page top -->
         
+
+        <!-- page bottom -->
+        <div class="page-template-bottom border-box">
+            <!-- use page template -->
             
-                <div class="tagcloud-content">
-                    <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1rem;">博客</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1rem;">测试</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 1rem;">生活</a> <a href="/tags/%E8%87%AA%E5%B7%B1/" style="font-size: 1rem;">自己</a>
-                </div>
+
+            <!-- page content -->
+            <div class="page-content border-box keep-markdown-body ">
+                
+                    <html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello World</title>
+  </head>
+  <body>
+    <div class="description">
+      <div class="desc-item">
+        <span class="desc">打印机打字效果展示~~~</span
+        ><span class="cursor">｜</span>
+      </div>
+      <div class="desc-item">
+        <span class="desc">学习新思想，争做新青年！</span
+        ><span class="cursor">｜</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const initTypewriter = () => {
+      const descBox = document.querySelector(" .description");
+      if (descBox) {
+        descBox.style.opacity = "0";
+
+        setTimeout(() => {
+          descBox.style.opacity = "1";
+          const descItemList = descBox.querySelectorAll(".desc-item");
+
+          descItemList.forEach((descItem) => {
+            const desc = descItem.querySelector(".desc");
+            const cursor = descItem.querySelector(".cursor");
+            const text = desc.innerHTML;
+
+            desc.innerHTML = "";
+            let charIndex = 0;
+
+            const typewriter = () => {
+              if (charIndex < text.length) {
+                desc.textContent += text[charIndex];
+                charIndex++;
+                setTimeout(typewriter, 100);
+              } else {
+                cursor.style.display = "none";
+              }
+            };
+
+            if (text) typewriter();
+          });
+        }, 300);
+      }
+    };
+    initTypewriter();
+  </script>
+  <style type="text/css">
+    .description {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .desc-item {
+      margin-bottom: 1em;
+    }
+  </style>
+</html>
+
+                
+            </div>
+
+            <!-- comment plugin -->
             
-        
-        
+        </div>
     </div>
 </div>
 
