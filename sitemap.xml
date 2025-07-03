@@ -119,10 +119,24 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://lizheng487.github.io/tags/%E5%A8%B1%E4%B9%90/</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
     <loc>https://lizheng487.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lizheng487.github.io/categories/%E5%89%8D%E7%AB%AF%E5%B1%95%E7%A4%BA/</loc>
     <lastmod>2025-07-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
