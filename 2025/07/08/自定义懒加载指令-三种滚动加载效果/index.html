@@ -9,7 +9,7 @@
     
     <title>
         
-            404 |
+            自定义懒加载指令+三种滚动加载效果 |
         
         Blog
     </title>
@@ -343,15 +343,228 @@
             <div class="main-content border-box">
                 
 
-                    <div class="fade-in-down-animation">
-    <div class="error-404-container border-box">
-        <div class="text-1 border-box flex-center">404</div>
-        <div class="text-2 border-box flex-center">
-            页面找不到
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        自定义懒加载指令+三种滚动加载效果
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.png">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">li zheng</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025年07月08日</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Tue Jul 08 2025 15:16:30 GMT+0800">2025年07月08日</span>
+                </span>
+            
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body code-block-unshrink">
+                    
+
+                    
+                         <ul>
+<li>传统 scroll 事件</li>
+<li>scroll 事件 + 节流 + requestAnimationFrame 优化</li>
+<li>IntersectionObserver 观察者模式</li>
+<li>自定义懒加载指令</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="三种滚动加载效果"><a href="#三种滚动加载效果" class="headerlink" title="三种滚动加载效果"></a>三种滚动加载效果</h2><h3 id="传统-scroll-事件"><a href="#传统-scroll-事件" class="headerlink" title="传统 scroll 事件"></a>传统 scroll 事件</h3><ul>
+<li>原理：监听页面滚动事件，分析 clientHeight,scrollTop,scrollHeight 关系</li>
+<li><ol>
+<li>scrollTop – 滚动条距离顶部的高度</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>scrollHeight – 当前页面的总高度(body 总高度)</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>clientHeight – 当前可视的页面高度(设备窗口的高度)</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(</span><br><span class="line">  <span class="string">&quot;scroll&quot;</span>,</span><br><span class="line">  <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 获取视口的高度。window.innerHeight || Math.min(document.documentElement.clientHeight, document.body.clientHeight);</span></span><br><span class="line">    <span class="keyword">const</span> clientHeight = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientHeight</span>;</span><br><span class="line">    <span class="comment">// 获取滚动条的垂直位置。window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;</span></span><br><span class="line">    <span class="keyword">const</span> scrollTop = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollTop</span>;</span><br><span class="line">    <span class="comment">// 获取文档的总高度。Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);</span></span><br><span class="line">    <span class="keyword">const</span> scrollHeight = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollHeight</span>;</span><br><span class="line">    <span class="comment">// 检查是否滚动到底部</span></span><br><span class="line">    <span class="keyword">if</span> (clientHeight + scrollTop &gt;= scrollHeight) &#123;</span><br><span class="line">      <span class="comment">// 监测到滚动到底部，进行后续操作</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">false</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="scroll-事件-节流-requestAnimationFrame-优化"><a href="#scroll-事件-节流-requestAnimationFrame-优化" class="headerlink" title="scroll 事件 + 节流 + requestAnimationFrame 优化"></a>scroll 事件 + 节流 + requestAnimationFrame 优化</h3><ul>
+<li>在传统的滚动监听中，每次滚动都会触发 scroll 事件，可能会导致性能问题。为了解决这个问题，我们可以使用节流（throttle）来限制触发频率。</li>
+<li>使用 requestAnimationFrame 浏览器会自动优化动画，从而提高性能。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isScrolling = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;scroll&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!isScrolling) &#123;</span><br><span class="line">    isScrolling = <span class="literal">true</span>;</span><br><span class="line">    <span class="title function_">requestAnimationFrame</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> clientHeight = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientHeight</span>;</span><br><span class="line">      <span class="keyword">const</span> scrollTop = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollTop</span>;</span><br><span class="line">      <span class="keyword">const</span> scrollHeight = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollHeight</span>;</span><br><span class="line">      <span class="keyword">if</span> (clientHeight + scrollTop &gt;= scrollHeight) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;滚动到底部了，可以加载更多内容&quot;</span>);</span><br><span class="line">        <span class="comment">// 在这里调用加载更多内容的函数</span></span><br><span class="line">      &#125;</span><br><span class="line">      isScrolling = <span class="literal">false</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="IntersectionObserver-观察者模式"><a href="#IntersectionObserver-观察者模式" class="headerlink" title="IntersectionObserver 观察者模式"></a>IntersectionObserver 观察者模式</h3><ul>
+<li>IntersectionObserver 是一种用于监听元素是否进入或离开可视区域的 API，它可以实现懒加载。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">handleIntersection</span>(<span class="params">entries, observer</span>) &#123;</span><br><span class="line">  entries.<span class="title function_">forEach</span>(<span class="function">(<span class="params">entry</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (entry.<span class="property">isIntersecting</span>) &#123;</span><br><span class="line">      <span class="title function_">loadMoreData</span>().<span class="title function_">then</span>(<span class="function">(<span class="params">newData</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;loadMoreData:&quot;</span>, newData);</span><br><span class="line">        <span class="comment">// 重新观察加载提示</span></span><br><span class="line">        observer.<span class="title function_">observe</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;loader&quot;</span>));</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">IntersectionObserver</span>(handleIntersection, &#123;</span><br><span class="line">  <span class="attr">threshold</span>: <span class="number">0.1</span>, <span class="comment">// 当加载提示进入视口 10% 时触发</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开始观察加载提示</span></span><br><span class="line">observer.<span class="title function_">observe</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;loader&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义懒加载指令"><a href="#自定义懒加载指令" class="headerlink" title="自定义懒加载指令"></a>自定义懒加载指令</h2><p>定义了一个自定义指令 v-lazy，用于懒加载图片。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义指令，懒加载</span></span><br><span class="line">app.<span class="title function_">directive</span>(<span class="string">&quot;lazy&quot;</span>, &#123;</span><br><span class="line">  <span class="title function_">mounted</span>(<span class="params">el, binding</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> observe = <span class="keyword">new</span> <span class="title class_">IntersectionObserver</span>(</span><br><span class="line">      <span class="function">(<span class="params">[&#123; isIntersecting &#125;]</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (isIntersecting) &#123;</span><br><span class="line">          observe.<span class="title function_">unobserve</span>(el);</span><br><span class="line">          el.<span class="property">onerror</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            el.<span class="property">src</span> = defaultImg;</span><br><span class="line">          &#125;;</span><br><span class="line">          el.<span class="property">src</span> = binding.<span class="property">value</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">threshold</span>: <span class="number">0</span>,</span><br><span class="line">      &#125;</span><br><span class="line">    );</span><br><span class="line">    observe.<span class="title function_">observe</span>(el);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                自定义懒加载指令+三种滚动加载效果
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2025/07/08/自定义懒加载指令-三种滚动加载效果/
+            </div>
         </div>
-        <div class="text-3 border-box flex-center">
-            <a class="go-home" href="/">前往首页</a>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">li zheng</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2025-07-08 14:39</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
         </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/07/08/URL%E8%B7%AF%E5%BE%84%E8%A7%A3%E6%9E%90/"
+                                   title="URL路径解析"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">URL路径解析</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E6%BB%9A%E5%8A%A8%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C"><span class="nav-text">三种滚动加载效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F-scroll-%E4%BA%8B%E4%BB%B6"><span class="nav-text">传统 scroll 事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll-%E4%BA%8B%E4%BB%B6-%E8%8A%82%E6%B5%81-requestAnimationFrame-%E4%BC%98%E5%8C%96"><span class="nav-text">scroll 事件 + 节流 + requestAnimationFrame 优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntersectionObserver-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-text">IntersectionObserver 观察者模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%87%92%E5%8A%A0%E8%BD%BD%E6%8C%87%E4%BB%A4"><span class="nav-text">自定义懒加载指令</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
     </div>
 </div>
 
@@ -385,6 +598,31 @@
 
     <!-- post tools -->
     
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
 
     <!-- side tools -->
     <div class="side-tools">
@@ -415,6 +653,10 @@
     </ul>
 
     <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
         
 
         
@@ -472,6 +714,17 @@
 
     <!-- tablet toc -->
     
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E6%BB%9A%E5%8A%A8%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C"><span class="nav-text">三种滚动加载效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F-scroll-%E4%BA%8B%E4%BB%B6"><span class="nav-text">传统 scroll 事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll-%E4%BA%8B%E4%BB%B6-%E8%8A%82%E6%B5%81-requestAnimationFrame-%E4%BC%98%E5%8C%96"><span class="nav-text">scroll 事件 + 节流 + requestAnimationFrame 优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntersectionObserver-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-text">IntersectionObserver 观察者模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%87%92%E5%8A%A0%E8%BD%BD%E6%8C%87%E4%BB%A4"><span class="nav-text">自定义懒加载指令</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
 </main>
 
 
@@ -510,6 +763,28 @@
     
 
     <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
     
 
     <!-- categories page -->
