@@ -9,7 +9,7 @@
     
     <title>
         
-            标签 |
+            分类: 懒加载 |
         
         Blog
     </title>
@@ -138,7 +138,7 @@
                                         </li>
                                     
                                         
-                                        <li class="sub-menu-item border-box  active">
+                                        <li class="sub-menu-item border-box ">
                                             <a class="menu-text-color border-box flex-start" href="/tags">
                                                 
                                                     <i class="menu-text-color sub-menu-icon fa-solid fa-tags"></i>
@@ -148,7 +148,7 @@
                                         </li>
                                     
                                         
-                                        <li class="sub-menu-item border-box ">
+                                        <li class="sub-menu-item border-box  active">
                                             <a class="menu-text-color border-box flex-start" href="/categories">
                                                 
                                                     <i class="menu-text-color sub-menu-icon fa-solid fa-layer-group"></i>
@@ -269,7 +269,7 @@
                                 </li>
                             
                                 
-                                <li class="sub-menu-item border-box active">
+                                <li class="sub-menu-item border-box">
                                     <a class="drawer-menu-text-color border-box flex-start" href="/tags">
                                         
                                             <span class="sub-menu-icon-wrap border-box flex-center">
@@ -281,7 +281,7 @@
                                 </li>
                             
                                 
-                                <li class="sub-menu-item border-box">
+                                <li class="sub-menu-item border-box active">
                                     <a class="drawer-menu-text-color border-box flex-start" href="/categories">
                                         
                                             <span class="sub-menu-icon-wrap border-box flex-center">
@@ -344,16 +344,39 @@
                 
 
                     <div class="fade-in-down-animation">
-    <div class="tag-page-container">
-        
+    <div class="category-archive-container border-box">
+        <div class="category-name">
+            <i class="fas fa-folder"></i>&nbsp;懒加载
+        </div>
+        <div class="category-post-list">
             
-                <div class="tagcloud-content">
-                    <a href="/tags/JavaScript/" style="font-size: 1rem;">JavaScript</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1rem;">博客</a> <a href="/tags/%E5%A8%B1%E4%B9%90/" style="font-size: 1rem;">娱乐</a> <a href="/tags/%E6%87%92%E5%8A%A0%E8%BD%BD/" style="font-size: 1rem;">懒加载</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1rem;">测试</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 1rem;">生活</a> <a href="/tags/%E8%87%AA%E5%B7%B1/" style="font-size: 1rem;">自己</a>
-                </div>
-            
-        
-        
+<div class="archive-list-container border-box">
+    
+        <section class="archive-item border-box">
+            <div class="archive-item-header border-box">
+                <span class="archive-year">2025</span>
+            </div>
+            <ul class="archive-item-body border-box">
+                
+                    <li class="post-item border-box">
+                        <span class="starting-point border-box flex-center"></span>
+                        <span class="post-date border-box">07-08</span>
+                        <a class="post-title border-box text-ellipsis"
+                           href="/2025/07/08/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%87%92%E5%8A%A0%E8%BD%BD%E6%8C%87%E4%BB%A4-%E4%B8%89%E7%A7%8D%E6%BB%9A%E5%8A%A8%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C/"
+                        >自定义懒加载指令+三种滚动加载效果</a>
+                    </li>
+                
+            </ul>
+        </section>
+    
+</div>
+
+        </div>
     </div>
+    
+
+
+
 </div>
 
 
@@ -479,6 +502,7 @@
 
 
 
+
 <!-- common js -->
 
 <script src="/js/utils.js"></script>
@@ -514,6 +538,10 @@
     
 
     <!-- categories page -->
+    
+        
+<script src="/js/page/category-page.js"></script>
+
     
 
     <!-- links page -->
